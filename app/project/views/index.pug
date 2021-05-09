@@ -1,0 +1,22 @@
+html
+  head
+    link(rel="stylesheet" href="style.css")
+    title=title
+  body
+    h1 Hello kubernetes world v2!
+    .centered-layout
+      img(src="picsum.jpg" alt="picture of the day" style="width: 350px; height: 350px")
+      .todo-submit-form
+        form(method="POST" action="/new")
+          input(type="text" name="todo")
+          input(type="submit" value="create TODO")
+      ul 
+        each todo in todos
+          if todo.completed
+            li.green=todo.text
+          else
+            li.gray-row
+              p=todo.text
+              form(method="POST" action=`/update/${todo.id}`)
+                  input(type="submit" value="complete")
+      

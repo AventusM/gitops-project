@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: kube-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-node
+  strategy:
+    canary:
+      steps:
+      - setWeight: 50
+      - analysis:
+          templates:
+          - templateName: kube-node-restart-rate
+  template:
+    metadata:
+      labels:
+        app: kube-node
+    spec:
+      volumes:
+        - name: shared-text
+          persistentVolumeClaim:
+            claimName: logs-claim
+      containers:
+        - name: kube-node-gateway
+          image: PROJECT/GATEWAYIMAGE
+          volumeMounts:
+            - name: shared-text
+              mountPath: /public
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 3002 # CONNECTS TO THE BACKEND --> HAS TO SHARE THE PORT FOR SOME REASON
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 3002 # CONNECTS TO THE BACKEND --> HAS TO SHARE THE PORT FOR SOME REASON
+        - name: kube-node-backend
+          image: PROJECT/BACKENDIMAGE
+          envFrom:
+          - secretRef:
+              name: postgres-credentials # replace with bad-credentials to test for exercise 4.02
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 3002
+          livenessProbe:
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            httpGet:
+               path: /healthz
+               port: 3002

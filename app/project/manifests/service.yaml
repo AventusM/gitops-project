@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-node-service
+spec:
+  type: ClusterIP
+  selector:
+    app: kube-node
+  ports:
+    - port: 2345
+      name: gateway
+      protocol: TCP
+      targetPort: 3001
+    - port: 2346
+      name: backend
+      protocol: TCP
+      targetPort: 3002

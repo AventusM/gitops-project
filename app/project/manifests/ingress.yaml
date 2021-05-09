@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kube-node-ingress
+  annotations:
+    traefik.ingress.kubernetes.io/rule-type: 'PathPrefixStrip'
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              serviceName: kube-node-service
+              servicePort: 2345
+          - path: /todos
+            pathType: Prefix
+            backend:
+              serviceName: kube-node-service
+              servicePort: 2346
