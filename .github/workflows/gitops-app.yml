@@ -5,10 +5,11 @@ on:
     branches:
       - main
     paths:
-      - '/app/**'
-      - '/app-backend/**'
-      - '/app-broadcaster/**'
+      - 'app/**'
+      - 'app-backend/**'
+      - 'app-broadcaster/**'
       - '.github/workflows/gitops-app.yml'
+      - 'manifests/**'
 
 jobs:
   build:
