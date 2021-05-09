@@ -2,23 +2,23 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - deployment.yaml
-  - ingress.yaml
-  - namespace-course-exercises.yaml
-  - persistentvolume.yaml
-  - persistentvolumeclaim.yaml
-  - sealedsecret-postgres.yaml
-  - sealedsecret-telegram.yaml
-  - postgres-statefulset.yaml
-  - service.yaml
+- deployment.yaml
+- ingress.yaml
+- namespace-course-exercises.yaml
+- persistentvolume.yaml
+- persistentvolumeclaim.yaml
+- sealedsecret-postgres.yaml
+- sealedsecret-telegram.yaml
+- postgres-statefulset.yaml
+- service.yaml
 
 images:
-  - name: PROJECT/GATEWAYIMAGE
-    newName: aventusm/kube-node-project
-    newTag: a43e30c54d2883e5d925164a36d22c7f4e43f946
-  - name: PROJECT/BACKENDIMAGE
-    newName: aventusm/kube-node-project-backend
-    newTag: a43e30c54d2883e5d925164a36d22c7f4e43f946
-  - name: PROJECT/BROADCASTERIMAGE
-    newName: aventusm/kube-node-project-broadcaster
-    newTag: a43e30c54d2883e5d925164a36d22c7f4e43f946
+- name: PROJECT/BACKENDIMAGE
+  newName: aventusm/kube-node-project-backend
+  newTag: a70799e70a3d014c524474b28866e05cdf16d30e
+- name: PROJECT/BROADCASTERIMAGE
+  newName: aventusm/kube-node-project-broadcaster
+  newTag: a70799e70a3d014c524474b28866e05cdf16d30e
+- name: PROJECT/GATEWAYIMAGE
+  newName: aventusm/kube-node-project
+  newTag: a70799e70a3d014c524474b28866e05cdf16d30e
