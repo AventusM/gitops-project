@@ -7,8 +7,8 @@ resources:
 - namespace-course-exercises.yaml
 - persistentvolume.yaml
 - persistentvolumeclaim.yaml
-- sealedsecret-postgres.yaml
-- sealedsecret-telegram.yaml
+- postgres-sealedsecret.yaml
+- telegram-sealedsecret.yaml
 - postgres-statefulset.yaml
 - service.yaml
 
